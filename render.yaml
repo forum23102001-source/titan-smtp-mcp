@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: titan-smtp-mcp
+    runtime: python
+    plan: starter            # paid plan required: free web services block SMTP ports
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: TITAN_USER
+        sync: false          # you type this in the Render dashboard
+      - key: TITAN_PASS
+        sync: false          # you type this in the Render dashboard
+      - key: MCP_SECRET
+        generateValue: true  # Render creates a long random value
